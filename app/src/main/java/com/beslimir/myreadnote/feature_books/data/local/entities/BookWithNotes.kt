@@ -1,4 +1,4 @@
-package com.beslimir.myreadnote.feature_notes.data.local.entities
+package com.beslimir.myreadnote.feature_books.data.local.entities
 
 import androidx.room.Embedded
 import androidx.room.Relation
@@ -9,5 +9,5 @@ data class BookWithNotes(
         parentColumn = "bookId",
         entityColumn = "bookId"
     )
-    val notes: List<BookEntity>
+    val notes: List<NoteEntity>
 )

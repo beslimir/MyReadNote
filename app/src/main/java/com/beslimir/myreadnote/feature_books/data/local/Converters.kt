@@ -1,8 +1,8 @@
-package com.beslimir.myreadnote.feature_notes.data.local
+package com.beslimir.myreadnote.feature_books.data.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.beslimir.myreadnote.feature_notes.util.BookType
+import com.beslimir.myreadnote.feature_books.util.BookType
 
 @ProvidedTypeConverter
 class Converters {

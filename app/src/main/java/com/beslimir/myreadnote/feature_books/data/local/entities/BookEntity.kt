@@ -1,8 +1,8 @@
-package com.beslimir.myreadnote.feature_notes.data.local.entities
+package com.beslimir.myreadnote.feature_books.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.beslimir.myreadnote.feature_notes.util.BookType
+import com.beslimir.myreadnote.feature_books.util.BookType
 
 @Entity
 data class BookEntity(

@@ -1,4 +1,4 @@
-package com.beslimir.myreadnote.feature_notes.util
+package com.beslimir.myreadnote.feature_books.util
 
 enum class BookType {
     ADVENTURE,

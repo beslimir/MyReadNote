@@ -1,4 +1,4 @@
-package com.beslimir.myreadnote.feature_notes.data.local.entities
+package com.beslimir.myreadnote.feature_books.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class NoteEntity(
     @PrimaryKey val noteId: Int,
     val noteTitle: String? = null,
-    val noteContent: String
+    val noteContent: String,
+    val bookId: Int
 )
