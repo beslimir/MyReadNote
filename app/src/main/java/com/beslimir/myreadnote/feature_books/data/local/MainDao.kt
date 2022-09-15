@@ -17,7 +17,7 @@ interface MainDao {
     suspend fun insertNoteForSpecificBook(note: NoteEntity)
 
     @Query("SELECT * FROM BookEntity")
-    fun getAllBooks(): Flow<Resource<List<BookEntity>>>
+    fun getAllBooks(): List<BookEntity>
 
     @Transaction //execute in a thread safe manner
     @Query("SELECT * FROM BookEntity WHERE bookId = :bookId")
