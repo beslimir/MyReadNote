@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
-    private val mainDatabase: MainDatabase
+    mainDatabase: MainDatabase
 ) : MainRepository {
 
     private val mainDao = mainDatabase.dao
@@ -26,10 +26,16 @@ class MainRepositoryImpl @Inject constructor(
 
     override fun getAllBooks(): Flow<Resource<List<BookEntity>>> {
         return flow {
-            val booksList = mainDao.getAllBooks()
-            emit(Resource.Success(
-                data = booksList
-            ))
+            try {
+                val booksList = mainDao.getAllBooks()
+                emit(Resource.Success(
+                    data = booksList
+                ))
+            } catch (e: Exception) {
+                emit(Resource.Error(
+                    message = e.message ?: "Unknown error"
+                ))
+            }
         }
     }
 
