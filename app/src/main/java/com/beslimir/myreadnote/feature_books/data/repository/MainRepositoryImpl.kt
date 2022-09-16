@@ -1,6 +1,6 @@
 package com.beslimir.myreadnote.feature_books.data.repository
 
-import com.beslimir.myreadnote.feature_books.data.local.MainDao
+import com.beslimir.myreadnote.feature_books.data.local.MainDatabase
 import com.beslimir.myreadnote.feature_books.data.local.entities.BookEntity
 import com.beslimir.myreadnote.feature_books.data.local.entities.BookWithNotes
 import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
@@ -8,10 +8,13 @@ import com.beslimir.myreadnote.feature_books.domain.repository.MainRepository
 import com.beslimir.myreadnote.feature_books.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class MainRepositoryImpl(
-    private val mainDao: MainDao,
+class MainRepositoryImpl @Inject constructor(
+    private val mainDatabase: MainDatabase
 ) : MainRepository {
+
+    private val mainDao = mainDatabase.dao
 
     override suspend fun insertBook(book: BookEntity) {
         mainDao.insertBook(book)
