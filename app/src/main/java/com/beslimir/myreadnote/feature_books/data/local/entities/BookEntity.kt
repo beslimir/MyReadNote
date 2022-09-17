@@ -6,7 +6,7 @@ import com.beslimir.myreadnote.feature_books.util.BookType
 
 @Entity
 data class BookEntity(
-    @PrimaryKey val bookId: Int,
+    @PrimaryKey val bookId: Int? = null,
     val bookTitle: String,
     val bookAuthor: String,
     val bookStartDate: Long,

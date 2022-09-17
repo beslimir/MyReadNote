@@ -8,7 +8,7 @@ import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 
 @Database(
     entities = [BookEntity::class, NoteEntity::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class MainDatabase: RoomDatabase() {

@@ -5,7 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beslimir.myreadnote.feature_books.data.local.entities.BookEntity
+import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 import com.beslimir.myreadnote.feature_books.domain.use_cases.UseCaseWrapper
+import com.beslimir.myreadnote.feature_books.util.BookType
 import com.beslimir.myreadnote.feature_books.util.OrderCategory
 import com.beslimir.myreadnote.feature_books.util.OrderType
 import com.beslimir.myreadnote.feature_books.util.Resource
@@ -39,6 +41,14 @@ class BooksViewModel @Inject constructor(
 //                BookType.SELF_DEVELOPMENT
 //            )
 //        )
+//
+//        insertNoteForSpecificBook(
+//            NoteEntity(
+//                noteTitle = "Second Note",
+//                noteContent = "This is the content of the second note.",
+//                bookId = 1
+//            )
+//        )
 
         getAllBooks(OrderCategory.Date(OrderType.DESCENDING))
     }
@@ -46,6 +56,12 @@ class BooksViewModel @Inject constructor(
     private fun insertNewBook(bookEntity: BookEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             useCases.insertBookUseCase(bookEntity)
+        }
+    }
+
+    private fun insertNoteForSpecificBook(noteEntity: NoteEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCases.insertNoteForSpecificBookUseCase(noteEntity)
         }
     }
 
