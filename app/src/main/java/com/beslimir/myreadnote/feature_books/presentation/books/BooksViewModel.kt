@@ -12,7 +12,8 @@ import com.beslimir.myreadnote.feature_books.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -49,21 +50,18 @@ class BooksViewModel @Inject constructor(
     }
 
     private fun getAllBooks(orderCategory: OrderCategory) {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCases.getAllBooksUseCase(orderCategory).collect { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        result.data.let { bookList ->
-                            _state.value = state.value.copy(
-                                books = bookList!!
-                            )
-                        }
-                    }
-                    is Resource.Error -> TODO()
-                    is Resource.Loading -> Unit
+        getAllBooksJob?.cancel()
+        getAllBooksJob = useCases.getAllBooksUseCase(orderCategory).onEach { result ->
+            when (result) {
+                is Resource.Error -> {}
+                is Resource.Loading -> Unit
+                is Resource.Success -> {
+                    _state.value = state.value.copy(
+                        books = result.data!!
+                    )
                 }
             }
-        }
-    }
 
+        }.launchIn(viewModelScope)
+    }
 }

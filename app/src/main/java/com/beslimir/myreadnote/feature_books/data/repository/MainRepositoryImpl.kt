@@ -24,27 +24,21 @@ class MainRepositoryImpl @Inject constructor(
         mainDao.insertNoteForSpecificBook(note)
     }
 
-    override fun getAllBooks(): Flow<Resource<List<BookEntity>>> {
-        return flow {
-            try {
-                val booksList = mainDao.getAllBooks()
-                emit(Resource.Success(
-                    data = booksList
-                ))
-            } catch (e: Exception) {
-                emit(Resource.Error(
-                    message = e.message ?: "Unknown error"
-                ))
-            }
+    override fun getAllBooks(): Flow<Resource<List<BookEntity>>> = flow {
+        try {
+            val bookList = mainDao.getAllBooks()
+            emit(Resource.Success(bookList))
+        } catch (e: Exception) {
+            emit(Resource.Error(
+                message = e.message ?: "An error occurred."
+            ))
         }
     }
 
-    override fun getAllNotesForSpecificBook(bookId: Int): Flow<Resource<List<BookWithNotes>>> {
+    override fun getAllNotesForSpecificBook(bookId: Int): Flow<List<BookWithNotes>> {
         return flow {
-            val notesLIst = mainDao.getAllNotesForSpecificBook(bookId)
-            emit(Resource.Success(
-                data = notesLIst
-            ))
+            val notesList = mainDao.getAllNotesForSpecificBook(bookId)
+            emit(notesList)
         }
     }
 }
