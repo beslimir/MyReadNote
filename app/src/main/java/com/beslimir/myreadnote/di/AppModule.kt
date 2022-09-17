@@ -2,6 +2,7 @@ package com.beslimir.myreadnote.di
 
 import android.app.Application
 import androidx.room.Room
+import com.beslimir.myreadnote.feature_books.data.local.Converters
 import com.beslimir.myreadnote.feature_books.data.local.MainDatabase
 import com.beslimir.myreadnote.feature_books.domain.repository.MainRepository
 import com.beslimir.myreadnote.feature_books.domain.use_cases.*
@@ -22,13 +23,13 @@ object AppModule {
             app,
             MainDatabase::class.java,
             "main_database.db"
-        ).build()
+        ).addTypeConverter(Converters()).build()
     }
 
     @Singleton
     @Provides
     fun provideUseCaseWrapper(
-        mainRepository: MainRepository
+        mainRepository: MainRepository,
     ): UseCaseWrapper {
         return UseCaseWrapper(
             insertBookUseCase = InsertBookUseCase(mainRepository),
