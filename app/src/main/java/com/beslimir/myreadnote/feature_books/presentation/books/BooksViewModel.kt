@@ -122,6 +122,12 @@ class BooksViewModel @Inject constructor(
         )
     }
 
+    fun closeNewBookSection() {
+        _state.value = state.value.copy(
+            isNewBookSectionVisible = false
+        )
+    }
+
     private fun insertNewBook(bookEntity: BookEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             useCases.insertBookUseCase(bookEntity)

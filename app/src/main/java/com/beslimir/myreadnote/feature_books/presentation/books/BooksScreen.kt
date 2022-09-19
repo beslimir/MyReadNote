@@ -12,14 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 
 @Composable
 fun BooksScreen(
     navController: NavController,
-    viewModel: BooksViewModel = hiltViewModel(),
+    viewModel: BooksViewModel,
 ) {
     val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
@@ -87,7 +86,7 @@ fun BooksScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        NewBookSection()
+                        NewBookSection(viewModel = viewModel)
                     }
                 }
             }
