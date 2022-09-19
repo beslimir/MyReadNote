@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.beslimir.myreadnote.feature_books.data.local.entities.BookEntity
 import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 import com.beslimir.myreadnote.feature_books.domain.use_cases.UseCaseWrapper
-import com.beslimir.myreadnote.feature_books.util.BookType
+import com.beslimir.myreadnote.feature_books.util.BooksEvent
 import com.beslimir.myreadnote.feature_books.util.OrderCategory
 import com.beslimir.myreadnote.feature_books.util.OrderType
 import com.beslimir.myreadnote.feature_books.util.Resource
@@ -26,6 +26,24 @@ class BooksViewModel @Inject constructor(
 
     private val _state = mutableStateOf(BooksState())
     val state: State<BooksState> = _state
+
+    private val _bookTitle = mutableStateOf(BookSectionItemState(
+        header = "Book title",
+        hint = "Enter book title"
+    ))
+    val bookTitle: State<BookSectionItemState> = _bookTitle
+
+    private val _bookAuthor = mutableStateOf(BookSectionItemState(
+        header = "Book author",
+        hint = "Enter book author"
+    ))
+    val bookAuthor: State<BookSectionItemState> = _bookAuthor
+
+    private val _bookType = mutableStateOf(BookSectionItemState(
+        header = "Book type",
+        hint = "Enter book type"
+    ))
+    val bookType: State<BookSectionItemState> = _bookType
 
     private var getAllBooksJob: Job? = null
 
@@ -51,6 +69,57 @@ class BooksViewModel @Inject constructor(
 //        )
 
         getAllBooks(OrderCategory.Date(OrderType.DESCENDING))
+    }
+
+    fun onEvent(event: BooksEvent) {
+        when (event) {
+            is BooksEvent.Order -> {
+
+            }
+            BooksEvent.SaveNewBook -> {
+
+            }
+            is BooksEvent.EnteredBookTitle -> {
+                _bookTitle.value = bookTitle.value.copy(
+                    inputValue = event.value
+                )
+            }
+            is BooksEvent.EnteredBookAuthor -> {
+                _bookAuthor.value = bookAuthor.value.copy(
+                    inputValue = event.value
+                )
+            }
+            is BooksEvent.EnteredBookType -> {
+                _bookType.value = bookType.value.copy(
+                    inputValue = event.value
+                )
+            }
+            is BooksEvent.ChangeTitleFocus -> {
+                _bookTitle.value = bookTitle.value.copy(
+                    isHintVisible = !event.focusState.isFocused
+                            && bookTitle.value.inputValue.isBlank()
+                )
+            }
+            is BooksEvent.ChangeAuthorFocus -> {
+                _bookAuthor.value = bookAuthor.value.copy(
+                    isHintVisible = !event.focusState.isFocused
+                            && bookAuthor.value.inputValue.isBlank()
+                )
+
+            }
+            is BooksEvent.ChangeBookTypeFocus -> {
+                _bookType.value = bookType.value.copy(
+                    isHintVisible = !event.focusState.isFocused
+                            && bookType.value.inputValue.isBlank()
+                )
+            }
+        }
+    }
+
+    fun openNewBookSection() {
+        _state.value = state.value.copy(
+            isNewBookSectionVisible = true
+        )
     }
 
     private fun insertNewBook(bookEntity: BookEntity) {

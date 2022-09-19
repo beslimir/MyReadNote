@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 
 @Composable
 fun BooksScreen(
@@ -26,7 +27,7 @@ fun BooksScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
-
+                viewModel.openNewBookSection()
             },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
@@ -42,7 +43,9 @@ fun BooksScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             Row(
                 modifier = Modifier
@@ -66,15 +69,25 @@ fun BooksScreen(
                     )
                 }
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(state.books) { bookItem ->
-                        BookListItem(bookEntity = bookItem)
-                        Spacer(modifier = Modifier.height(16.dp))
+            Box {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    LazyColumn(modifier = Modifier.fillMaxSize()) {
+                        items(state.books) { bookItem ->
+                            BookListItem(bookEntity = bookItem)
+                            Spacer(modifier = Modifier.height(16.dp))
+                        }
+                    }
+                }
+                if (state.isNewBookSectionVisible) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        NewBookSection()
                     }
                 }
             }
