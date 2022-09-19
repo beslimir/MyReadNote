@@ -49,6 +49,7 @@ fun BookSectionItem(
                 value = inputValue,
                 onValueChange = onValueChange,
                 textStyle = textStyle,
+                singleLine = true,
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
                     .shadow(
