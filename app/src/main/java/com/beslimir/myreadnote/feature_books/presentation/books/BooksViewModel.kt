@@ -113,6 +113,16 @@ class BooksViewModel @Inject constructor(
                             && bookType.value.inputValue.isBlank()
                 )
             }
+            is BooksEvent.ClearTitleInput -> {
+                _bookTitle.value = bookTitle.value.copy(
+                    inputValue = ""
+                )
+            }
+            is BooksEvent.ClearAuthorInput -> {
+                _bookAuthor.value = bookAuthor.value.copy(
+                    inputValue = ""
+                )
+            }
         }
     }
 

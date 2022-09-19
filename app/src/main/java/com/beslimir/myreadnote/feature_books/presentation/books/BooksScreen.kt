@@ -1,5 +1,6 @@
 package com.beslimir.myreadnote.feature_books.presentation.books
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BooksScreen(
     navController: NavController,
@@ -81,14 +83,19 @@ fun BooksScreen(
                         }
                     }
                 }
-                if (state.isNewBookSectionVisible) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    AnimatedVisibility(
+                        visible = state.isNewBookSectionVisible,
+                        enter = expandIn(),
+                        exit = shrinkOut()
                     ) {
                         NewBookSection(viewModel = viewModel)
                     }
                 }
+
             }
         }
     }

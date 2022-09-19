@@ -10,5 +10,7 @@ sealed class BooksEvent {
     data class EnteredBookType(val value: String): BooksEvent()
     data class ChangeBookTypeFocus(val focusState: FocusState): BooksEvent()
     data class Order(val orderCategory: OrderCategory): BooksEvent()
+    object ClearTitleInput: BooksEvent()
+    object ClearAuthorInput: BooksEvent()
     object SaveNewBook: BooksEvent()
 }

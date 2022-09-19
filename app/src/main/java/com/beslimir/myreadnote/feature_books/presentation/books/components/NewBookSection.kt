@@ -21,7 +21,7 @@ import com.beslimir.myreadnote.ui.theme.DarkGray
 
 @Composable
 fun NewBookSection(
-    viewModel: BooksViewModel
+    viewModel: BooksViewModel,
 ) {
     val bookTitleState = viewModel.bookTitle.value
     val bookAuthorState = viewModel.bookAuthor.value
@@ -59,39 +59,48 @@ fun NewBookSection(
                 header = bookTitleState.header,
                 inputValue = bookTitleState.inputValue,
                 hint = bookTitleState.hint,
-                textStyle = MaterialTheme.typography.h5,
+                textStyle = MaterialTheme.typography.h6,
                 isHintVisible = bookTitleState.isHintVisible,
                 onFocusChange = {
                     viewModel.onEvent(BooksEvent.ChangeTitleFocus(it))
                 },
                 onValueChange = {
                     viewModel.onEvent(BooksEvent.EnteredBookTitle(it))
+                },
+                onClearInput = {
+                    viewModel.onEvent(BooksEvent.ClearTitleInput)
                 }
             )
             BookSectionItem(
                 header = bookAuthorState.header,
                 inputValue = bookAuthorState.inputValue,
                 hint = bookAuthorState.hint,
-                textStyle = MaterialTheme.typography.h5,
+                textStyle = MaterialTheme.typography.h6,
                 isHintVisible = bookAuthorState.isHintVisible,
                 onFocusChange = {
                     viewModel.onEvent(BooksEvent.ChangeAuthorFocus(it))
                 },
                 onValueChange = {
                     viewModel.onEvent(BooksEvent.EnteredBookAuthor(it))
+                },
+                onClearInput = {
+                    viewModel.onEvent(BooksEvent.ClearAuthorInput)
                 }
             )
             BookSectionItem(
                 header = bookTypeState.header,
                 inputValue = bookTypeState.inputValue,
                 hint = bookTypeState.hint,
-                textStyle = MaterialTheme.typography.h5,
+                textStyle = MaterialTheme.typography.h6,
                 isHintVisible = bookTypeState.isHintVisible,
                 onFocusChange = {
                     viewModel.onEvent(BooksEvent.ChangeBookTypeFocus(it))
                 },
                 onValueChange = {
                     viewModel.onEvent(BooksEvent.EnteredBookType(it))
+                },
+                onClearInput = {
+
                 }
             )
             Row(
