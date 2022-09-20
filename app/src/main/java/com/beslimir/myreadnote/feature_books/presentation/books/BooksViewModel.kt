@@ -83,6 +83,7 @@ class BooksViewModel @Inject constructor(
                             bookType = BookType.valueOf(bookType.value.inputValue)
                         )
                     )
+                    getAllBooks(OrderCategory.Date(OrderType.DESCENDING))
                     closeNewBookSection()
                 }
             }
@@ -136,12 +137,6 @@ class BooksViewModel @Inject constructor(
         _state.value = state.value.copy(
             isNewBookSectionVisible = false
         )
-    }
-
-    private fun insertNewBook(bookEntity: BookEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCases.insertBookUseCase(bookEntity)
-        }
     }
 
     private fun insertNoteForSpecificBook(noteEntity: NoteEntity) {
