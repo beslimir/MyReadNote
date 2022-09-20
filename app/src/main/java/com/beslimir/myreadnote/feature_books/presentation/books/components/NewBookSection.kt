@@ -128,6 +128,12 @@ fun NewBookSection(
 fun DropdownDemo(textStyle: TextStyle) {
     var expanded by remember { mutableStateOf(false) }
     val dropDownItems = BookType.values().asList()
+        .map { bookType ->
+            bookType.name
+                .replace("_", " ")
+                .lowercase()
+                .replaceFirstChar { it.uppercase() }
+        }
     var dropDownIcon by remember { mutableStateOf(Icons.Default.ArrowDropDown) }
     var selectedIndex by remember { mutableStateOf(0) }
     val grayTextStyle = textStyle.copy(color = Color.Gray)
@@ -167,11 +173,7 @@ fun DropdownDemo(textStyle: TextStyle) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = dropDownItems[selectedIndex].name
-                    .lowercase()
-                    .replaceFirstChar {
-                        it.uppercase()
-                    },
+                text = dropDownItems[selectedIndex],
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
@@ -201,11 +203,7 @@ fun DropdownDemo(textStyle: TextStyle) {
                         dropDownIcon = Icons.Default.ArrowDropDown
                     }) {
                         Text(
-                            text = s.name
-                                .lowercase()
-                                .replaceFirstChar {
-                                    it.uppercase()
-                                },
+                            text = s,
                             style = grayTextStyle,
                             maxLines = 1
                         )
