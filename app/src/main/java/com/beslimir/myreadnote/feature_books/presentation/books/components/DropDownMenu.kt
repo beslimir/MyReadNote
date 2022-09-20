@@ -20,7 +20,11 @@ import androidx.compose.ui.unit.sp
 import com.beslimir.myreadnote.feature_books.util.BookType
 
 @Composable
-fun DropDownMenu(textStyle: TextStyle) {
+fun DropDownMenu(
+    header: String,
+    textStyle: TextStyle,
+    onValueSelected: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
     val dropDownItems = BookType.values().asList()
         .map { bookType ->
@@ -33,8 +37,10 @@ fun DropDownMenu(textStyle: TextStyle) {
     var selectedIndex by remember { mutableStateOf(0) }
     val grayTextStyle = textStyle.copy(color = Color.Gray)
 
+    onValueSelected(dropDownItems[0])
+
     Text(
-        text = "Book type",
+        text = header,
         fontSize = 12.sp,
         color = Color.DarkGray,
         modifier = Modifier
@@ -96,6 +102,7 @@ fun DropDownMenu(textStyle: TextStyle) {
                         selectedIndex = index
                         expanded = false
                         dropDownIcon = Icons.Default.ArrowDropDown
+                        onValueSelected(s)
                     }) {
                         Text(
                             text = s,

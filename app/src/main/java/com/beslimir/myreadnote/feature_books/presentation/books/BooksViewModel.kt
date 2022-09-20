@@ -7,10 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.beslimir.myreadnote.feature_books.data.local.entities.BookEntity
 import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 import com.beslimir.myreadnote.feature_books.domain.use_cases.UseCaseWrapper
-import com.beslimir.myreadnote.feature_books.util.BooksEvent
-import com.beslimir.myreadnote.feature_books.util.OrderCategory
-import com.beslimir.myreadnote.feature_books.util.OrderType
-import com.beslimir.myreadnote.feature_books.util.Resource
+import com.beslimir.myreadnote.feature_books.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,7 +38,7 @@ class BooksViewModel @Inject constructor(
 
     private val _bookType = mutableStateOf(BookSectionItemState(
         header = "Book type",
-        hint = "Enter book type"
+        hint = ""
     ))
     val bookType: State<BookSectionItemState> = _bookType
 
@@ -76,8 +73,18 @@ class BooksViewModel @Inject constructor(
             is BooksEvent.Order -> {
 
             }
-            BooksEvent.SaveNewBook -> {
-
+            is BooksEvent.SaveNewBook -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    useCases.insertBookUseCase(
+                        BookEntity(
+                            bookTitle = bookTitle.value.inputValue,
+                            bookAuthor = bookAuthor.value.inputValue,
+                            bookStartDate = 500000L, //TODO: import real time
+                            bookType = BookType.valueOf(bookType.value.inputValue)
+                        )
+                    )
+                    closeNewBookSection()
+                }
             }
             is BooksEvent.EnteredBookTitle -> {
                 _bookTitle.value = bookTitle.value.copy(
@@ -86,11 +93,6 @@ class BooksViewModel @Inject constructor(
             }
             is BooksEvent.EnteredBookAuthor -> {
                 _bookAuthor.value = bookAuthor.value.copy(
-                    inputValue = event.value
-                )
-            }
-            is BooksEvent.EnteredBookType -> {
-                _bookType.value = bookType.value.copy(
                     inputValue = event.value
                 )
             }
@@ -105,12 +107,10 @@ class BooksViewModel @Inject constructor(
                     isHintVisible = !event.focusState.isFocused
                             && bookAuthor.value.inputValue.isBlank()
                 )
-
             }
-            is BooksEvent.ChangeBookTypeFocus -> {
+            is BooksEvent.SelectBookType -> {
                 _bookType.value = bookType.value.copy(
-                    isHintVisible = !event.focusState.isFocused
-                            && bookType.value.inputValue.isBlank()
+                    inputValue = event.value.name
                 )
             }
             is BooksEvent.ClearTitleInput -> {

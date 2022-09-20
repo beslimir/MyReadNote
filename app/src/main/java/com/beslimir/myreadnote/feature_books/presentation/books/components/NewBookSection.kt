@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.beslimir.myreadnote.feature_books.presentation.books.BooksViewModel
+import com.beslimir.myreadnote.feature_books.util.BookType
 import com.beslimir.myreadnote.feature_books.util.BooksEvent
 import com.beslimir.myreadnote.ui.theme.DarkGray
 
@@ -87,7 +88,15 @@ fun NewBookSection(
                     viewModel.onEvent(BooksEvent.ClearAuthorInput)
                 }
             )
-            DropDownMenu(textStyle = MaterialTheme.typography.h6)
+            DropDownMenu(
+                header = bookTypeState.header,
+                textStyle = MaterialTheme.typography.h6,
+                onValueSelected = {
+                    viewModel.onEvent(BooksEvent.SelectBookType(BookType.valueOf(
+                        it.uppercase().replace(" ", "_")))
+                    )
+                }
+            )
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -107,7 +116,7 @@ fun NewBookSection(
                 }
                 Button(
                     onClick = {
-                        viewModel.closeNewBookSection()
+                        viewModel.onEvent(BooksEvent.SaveNewBook)
                     }
                 ) {
                     Text(
