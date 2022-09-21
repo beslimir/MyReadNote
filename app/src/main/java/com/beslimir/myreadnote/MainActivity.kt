@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.beslimir.myreadnote.feature_books.presentation.Screen
+import com.beslimir.myreadnote.feature_books.presentation.books.BooksEvent
 import com.beslimir.myreadnote.feature_books.presentation.books.BooksScreen
 import com.beslimir.myreadnote.feature_books.presentation.books.BooksViewModel
 import com.beslimir.myreadnote.feature_books.presentation.notes.NotesScreen
@@ -57,7 +58,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onBackPressed() {
         if (booksViewModel.state.value.isNewBookSectionVisible) {
-            booksViewModel.closeNewBookSection()
+            booksViewModel.onEvent(BooksEvent.CloseBookSection)
         } else {
             super.onBackPressed()
         }

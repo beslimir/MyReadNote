@@ -1,6 +1,8 @@
-package com.beslimir.myreadnote.feature_books.util
+package com.beslimir.myreadnote.feature_books.presentation.books
 
 import androidx.compose.ui.focus.FocusState
+import com.beslimir.myreadnote.feature_books.util.BookType
+import com.beslimir.myreadnote.feature_books.util.OrderCategory
 
 sealed class BooksEvent {
     data class EnteredBookTitle(val value: String): BooksEvent()

@@ -134,13 +134,13 @@ class BooksViewModel @Inject constructor(
         }
     }
 
-    fun openNewBookSection() {
+    private fun openNewBookSection() {
         _state.value = state.value.copy(
             isNewBookSectionVisible = true
         )
     }
 
-    fun closeNewBookSection() {
+    private fun closeNewBookSection() {
         _state.value = state.value.copy(
             isNewBookSectionVisible = false
         )

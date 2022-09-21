@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.beslimir.myreadnote.feature_books.presentation.books.BooksViewModel
 import com.beslimir.myreadnote.feature_books.util.BookType
-import com.beslimir.myreadnote.feature_books.util.BooksEvent
+import com.beslimir.myreadnote.feature_books.presentation.books.BooksEvent
 import com.beslimir.myreadnote.ui.theme.DarkGray
 
 @Composable
@@ -33,7 +33,7 @@ fun NewBookSection(
             modifier = Modifier
                 .fillMaxSize()
                 .clickable {
-                    viewModel.closeNewBookSection()
+                    viewModel.onEvent(BooksEvent.CloseBookSection)
                 },
             color = DarkGray.copy(alpha = 0.75f)
         ) {
