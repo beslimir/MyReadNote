@@ -88,6 +88,9 @@ class BooksViewModel @Inject constructor(
                     closeNewBookSection()
                 }
             }
+            is BooksEvent.CloseBookSection -> {
+                closeNewBookSection()
+            }
             is BooksEvent.EnteredBookTitle -> {
                 _bookTitle.value = bookTitle.value.copy(
                     inputValue = event.value
@@ -137,6 +140,12 @@ class BooksViewModel @Inject constructor(
     fun closeNewBookSection() {
         _state.value = state.value.copy(
             isNewBookSectionVisible = false
+        )
+        _bookTitle.value = bookTitle.value.copy(
+            inputValue = ""
+        )
+        _bookAuthor.value = bookAuthor.value.copy(
+            inputValue = ""
         )
     }
 

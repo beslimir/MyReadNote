@@ -106,7 +106,7 @@ fun NewBookSection(
             ) {
                 Button(
                     onClick = {
-                        viewModel.closeNewBookSection()
+                        viewModel.onEvent(BooksEvent.CloseBookSection)
                     }
                 ) {
                     Text(
