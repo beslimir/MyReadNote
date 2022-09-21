@@ -24,12 +24,13 @@ import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity.Comp
 @Composable
 fun BookListItem(
     bookEntity: BookEntity,
+    modifier: Modifier = Modifier
 ) {
     val colorCode = bookEntity.bookType.colorCode
     val color: Color = bookItemColors[colorCode]
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clip(RoundedCornerShape(10.dp))
     ) {
         Row(

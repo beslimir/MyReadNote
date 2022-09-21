@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.beslimir.myreadnote.feature_books.presentation.Screen
 import com.beslimir.myreadnote.feature_books.presentation.books.components.BookListItem
 import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 
@@ -24,7 +26,7 @@ import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBo
 @Composable
 fun BooksScreen(
     navController: NavController,
-    viewModel: BooksViewModel,
+    viewModel: BooksViewModel
 ) {
     val state = viewModel.state.value
     val scaffoldState = rememberScaffoldState()
@@ -82,7 +84,15 @@ fun BooksScreen(
                 ) {
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(state.books) { bookItem ->
-                            BookListItem(bookEntity = bookItem)
+                            BookListItem(
+                                bookEntity = bookItem,
+                                modifier = Modifier
+                                    .clickable {
+                                        navController.navigate(
+                                            Screen.NotesScreen.route + "?bookId=${bookItem.bookId}"
+                                        )
+                                    }
+                            )
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                     }
