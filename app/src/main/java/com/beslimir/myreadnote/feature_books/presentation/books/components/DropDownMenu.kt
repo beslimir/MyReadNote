@@ -37,8 +37,6 @@ fun DropDownMenu(
     var selectedIndex by remember { mutableStateOf(0) }
     val grayTextStyle = textStyle.copy(color = Color.Gray)
 
-    onValueSelected(dropDownItems[0])
-
     Text(
         text = header,
         fontSize = 12.sp,
