@@ -98,7 +98,7 @@ fun NotesScreen(
                         enter = expandIn(),
                         exit = shrinkOut()
                     ) {
-                        NewNoteSection()
+                        NewNoteSection(bookTitle = bookTitleState)
                     }
                 }
             }
