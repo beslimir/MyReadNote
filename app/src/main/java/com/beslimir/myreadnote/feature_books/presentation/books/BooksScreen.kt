@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import com.beslimir.myreadnote.feature_books.presentation.Screen
 import com.beslimir.myreadnote.feature_books.presentation.books.components.BookListItem
 import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
+import com.beslimir.myreadnote.feature_books.util.BooksEvent
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -34,7 +35,7 @@ fun BooksScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                viewModel.openNewBookSection()
+                viewModel.onEvent(BooksEvent.OpenBookSection)
             },
                 backgroundColor = MaterialTheme.colors.primary
             ) {

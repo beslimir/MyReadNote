@@ -88,6 +88,9 @@ class BooksViewModel @Inject constructor(
                     closeNewBookSection()
                 }
             }
+            is BooksEvent.OpenBookSection -> {
+                openNewBookSection()
+            }
             is BooksEvent.CloseBookSection -> {
                 closeNewBookSection()
             }

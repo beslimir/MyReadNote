@@ -12,5 +12,6 @@ sealed class BooksEvent {
     object ClearTitleInput: BooksEvent()
     object ClearAuthorInput: BooksEvent()
     object SaveNewBook: BooksEvent()
+    object OpenBookSection: BooksEvent()
     object CloseBookSection: BooksEvent()
 }

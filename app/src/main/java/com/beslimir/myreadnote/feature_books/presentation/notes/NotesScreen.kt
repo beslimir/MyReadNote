@@ -3,8 +3,7 @@ package com.beslimir.myreadnote.feature_books.presentation.notes
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.NoteAdd
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +28,7 @@ fun NotesScreen(
 
             }) {
                 Icon(
-                    imageVector = Icons.Default.NoteAdd,
+                    imageVector = Icons.Default.NoteAlt,
                     contentDescription = "Add new note"
                 )
             }
