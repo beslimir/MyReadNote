@@ -38,7 +38,8 @@ class BooksViewModel @Inject constructor(
 
     private val _bookType = mutableStateOf(BookSectionItemState(
         header = "Book type",
-        hint = ""
+        hint = "",
+        inputValue = BookType.ADVENTURE.name
     ))
     val bookType: State<BookSectionItemState> = _bookType
 

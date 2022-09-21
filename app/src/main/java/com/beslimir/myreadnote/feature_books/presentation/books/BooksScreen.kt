@@ -1,6 +1,9 @@
 package com.beslimir.myreadnote.feature_books.presentation.books
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.beslimir.myreadnote.feature_books.presentation.books.components.BookListItem
 import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 
 @OptIn(ExperimentalAnimationApi::class)
