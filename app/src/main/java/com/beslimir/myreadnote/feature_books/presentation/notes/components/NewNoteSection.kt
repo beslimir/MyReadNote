@@ -5,10 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,7 +13,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -63,10 +63,11 @@ fun NewNoteSection(
                     text = bookTitle,
                     style = MaterialTheme.typography.h6,
                     fontFamily = FontFamily.Serif,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.ExtraBold,
                     color = Color.White
                 )
             }
+            Spacer(modifier = Modifier.height(16.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -74,7 +75,10 @@ fun NewNoteSection(
                 contentAlignment = Alignment.TopStart
             ) {
                 if (noteTitle.isHintVisible) {
-                    Text(text = noteTitle.hint)
+                    Text(
+                        text = noteTitle.hint,
+                        style = MaterialTheme.typography.body1
+                    )
                 }
                 BasicTextField(
                     value = noteTitle.inputValue,
@@ -86,21 +90,26 @@ fun NewNoteSection(
                         .onFocusChanged {
                             viewModel.onEvent(NotesEvent.ChangeTitleFocus(it))
                         },
-                    singleLine = true
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.body1.copy(color = Color.White),
+                    cursorBrush = SolidColor(Color.White)
                 )
             }
             Divider(
                 color = Color.White,
                 modifier = Modifier
-                    .padding(start = 8.dp, end = 8.dp)
+                    .padding(start = 8.dp, end = 8.dp, top = 2.dp, bottom = 6.dp)
             )
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp)
+                    .padding(8.dp, top = 0.dp)
             ) {
                 if (noteDescription.isHintVisible) {
-                    Text(text = noteDescription.hint)
+                    Text(
+                        text = noteDescription.hint,
+                        style = MaterialTheme.typography.body2
+                    )
                 }
                 BasicTextField(
                     value = noteDescription.inputValue,
@@ -111,8 +120,28 @@ fun NewNoteSection(
                         .fillMaxSize()
                         .onFocusChanged {
                             viewModel.onEvent(NotesEvent.ChangeDescriptionFocus(it))
-                        }
+                        },
+                    textStyle = MaterialTheme.typography.body2.copy(color = Color.White),
+                    cursorBrush = SolidColor(Color.White)
                 )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Button(onClick = {
+
+                }) {
+                    Text("Cancel")
+                }
+                Button(onClick = {
+
+                }) {
+                    Text("Save")
+                }
             }
         }
     }
