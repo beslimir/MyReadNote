@@ -2,10 +2,14 @@ package com.beslimir.myreadnote.feature_books.presentation.notes.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,9 +18,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -53,31 +55,19 @@ fun NewNoteSection(
                 )
                 .background(RedOrange)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = bookTitle,
-                    style = MaterialTheme.typography.h6,
-                    fontFamily = FontFamily.Serif,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp, end = 2.dp),
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp),
                 contentAlignment = Alignment.TopStart
             ) {
                 if (noteTitle.isHintVisible) {
                     Text(
                         text = noteTitle.hint,
-                        style = MaterialTheme.typography.body1
+                        style = MaterialTheme.typography.h6,
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White
                     )
                 }
                 BasicTextField(
@@ -91,19 +81,19 @@ fun NewNoteSection(
                             viewModel.onEvent(NotesEvent.ChangeTitleFocus(it))
                         },
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.body1.copy(color = Color.White),
+                    textStyle = MaterialTheme.typography.h6.copy(
+                        color = Color.White,
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.ExtraBold
+                    ),
                     cursorBrush = SolidColor(Color.White)
                 )
             }
-            Divider(
-                color = Color.White,
-                modifier = Modifier
-                    .padding(start = 8.dp, end = 8.dp, top = 2.dp, bottom = 6.dp)
-            )
+            Spacer(modifier = Modifier.height(16.dp))
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp, top = 0.dp)
+                    .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 16.dp)
+                    .weight(1f)
             ) {
                 if (noteDescription.isHintVisible) {
                     Text(
@@ -121,26 +111,41 @@ fun NewNoteSection(
                         .onFocusChanged {
                             viewModel.onEvent(NotesEvent.ChangeDescriptionFocus(it))
                         },
-                    textStyle = MaterialTheme.typography.body2.copy(color = Color.White),
+                    textStyle = MaterialTheme.typography.body2.copy(
+                        color = Color.White,
+                        fontFamily = FontFamily.Serif,
+                        fontWeight = FontWeight.Bold
+                    ),
                     cursorBrush = SolidColor(Color.White)
                 )
             }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight(),
+                    .padding(16.dp)
+                    .clickable(
+                        interactionSource = MutableInteractionSource(),
+                        indication = null,
+                        onClick = {}
+                    ), //make window non clickable and without ripple effect
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(onClick = {
 
                 }) {
-                    Text("Cancel")
+                    Text(
+                        text = "Cancel",
+                        color = DarkGray
+                    )
                 }
                 Button(onClick = {
 
                 }) {
-                    Text("Save")
+                    Text(
+                        text = "Save",
+                        color = DarkGray
+                    )
                 }
             }
         }
