@@ -12,7 +12,7 @@ class GetAllBooksUseCase(
     private val mainRepository: MainRepository,
 ) {
     operator fun invoke(
-        orderCategory: OrderCategory = OrderCategory.Date(OrderType.DESCENDING),
+        orderCategory: OrderCategory = OrderCategory.Date(OrderType.DESCENDING)
     ): Flow<Resource<List<BookEntity>>> {
         return mainRepository.getAllBooks().map { it ->
             if (it is Resource.Success) {

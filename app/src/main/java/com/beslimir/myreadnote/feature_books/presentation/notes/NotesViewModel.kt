@@ -4,8 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 import com.beslimir.myreadnote.feature_books.domain.use_cases.UseCaseWrapper
+import com.beslimir.myreadnote.feature_books.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,18 +38,16 @@ class NotesViewModel @Inject constructor(
     private val _bookTitle = mutableStateOf("My book")
     val bookTitle: State<String> = _bookTitle
 
+    private var getAllNotesJob: Job? = null
     private var currentBookId: Int = -1
 
     init {
-//        savedStateHandle.get<Int>("bookId")?.let { bookId ->
-//            if (bookId != -1) {
-//                viewModelScope.launch {
-//                    useCases.getAllNotesForSpecificBookUseCase(bookId).also {
-//
-//                    }
-//                }
-//            }
-//        }
+        savedStateHandle.get<Int>("bookId")?.let { bookId ->
+            if (bookId != -1) {
+                currentBookId = bookId
+                getAllNotesForASpecificBook(bookId)
+            }
+        }
     }
 
     fun onEvent(event: NotesEvent) {
@@ -74,9 +80,36 @@ class NotesViewModel @Inject constructor(
                             && noteDescription.value.inputValue.isBlank()
                 )
             }
-
+            is NotesEvent.SaveNewNote -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    useCases.insertNoteForSpecificBookUseCase(
+                        NoteEntity(
+                            noteTitle = noteTitle.value.inputValue,
+                            noteContent = noteDescription.value.inputValue,
+                            bookId = currentBookId
+                        )
+                    )
+                    //TODO: get all notes
+                    closeNewNotesSection()
+                }
+            }
 
         }
+    }
+
+    private fun getAllNotesForASpecificBook(bookId: Int) {
+        getAllNotesJob?.cancel()
+        getAllNotesJob = useCases.getAllNotesForSpecificBookUseCase(bookId).onEach { result ->
+            when (result) {
+                is Resource.Error -> {}
+                is Resource.Loading -> Unit
+                is Resource.Success -> {
+                    _state.value = state.value.copy(
+                        notesList = result.data!!
+                    )
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     private fun openNewNotesSection() {

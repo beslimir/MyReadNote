@@ -36,15 +36,16 @@ fun NewNoteSection(
     val noteTitle = viewModel.noteTitle.value
     val noteDescription = viewModel.noteDescription.value
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(32.dp)
-            .clickable {
+    Box {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp)
+                .clickable {
 
-            },
-        color = DarkGray.copy(alpha = 0.75f)
-    ) {
+                },
+            color = DarkGray.copy(alpha = 0.75f)
+        ) {}
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -132,7 +133,7 @@ fun NewNoteSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(onClick = {
-
+                    viewModel.onEvent(NotesEvent.CloseNewNotesSection)
                 }) {
                     Text(
                         text = "Cancel",
@@ -140,7 +141,7 @@ fun NewNoteSection(
                     )
                 }
                 Button(onClick = {
-
+                    viewModel.onEvent(NotesEvent.SaveNewNote)
                 }) {
                     Text(
                         text = "Save",
@@ -150,5 +151,4 @@ fun NewNoteSection(
             }
         }
     }
-
 }

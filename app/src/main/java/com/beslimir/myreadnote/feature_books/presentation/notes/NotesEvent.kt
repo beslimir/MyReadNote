@@ -7,6 +7,7 @@ sealed class NotesEvent {
     data class ChangeTitleFocus(val focusState: FocusState): NotesEvent()
     data class EnterNoteDescription(val value: String): NotesEvent()
     data class ChangeDescriptionFocus(val focusState: FocusState): NotesEvent()
+    object SaveNewNote: NotesEvent()
     object OpenNewNotesSection: NotesEvent()
     object CloseNewNotesSection: NotesEvent()
 }
