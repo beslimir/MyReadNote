@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beslimir.myreadnote.feature_books.presentation.books.BooksEvent
 import com.beslimir.myreadnote.feature_books.presentation.notes.NotesEvent
 import com.beslimir.myreadnote.feature_books.presentation.notes.NotesViewModel
 import com.beslimir.myreadnote.ui.theme.DarkGray
@@ -40,14 +41,21 @@ fun NewNoteSection(
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(32.dp)
                 .clickable {
-
+                    viewModel.onEvent(NotesEvent.CloseNewNotesSection)
                 },
             color = DarkGray.copy(alpha = 0.75f)
-        ) {}
+        ) {
+
+        }
         Column(
             modifier = Modifier
+                .padding(
+                    start = 32.dp,
+                    end = 32.dp,
+                    top = 64.dp,
+                    bottom = 64.dp
+                )
                 .fillMaxSize()
                 .clip(RoundedCornerShape(5.dp))
                 .shadow(

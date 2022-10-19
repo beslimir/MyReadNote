@@ -89,7 +89,7 @@ class NotesViewModel @Inject constructor(
                             bookId = currentBookId
                         )
                     )
-                    //TODO: get all notes
+                    getAllNotesForASpecificBook(currentBookId)
                     closeNewNotesSection()
                 }
             }
@@ -120,7 +120,13 @@ class NotesViewModel @Inject constructor(
 
     private fun closeNewNotesSection() {
         _state.value = state.value.copy(
-            isNewNoteSectionVisible = true
+            isNewNoteSectionVisible = false
+        )
+        _noteTitle.value = noteTitle.value.copy(
+            inputValue = ""
+        )
+        _noteDescription.value = noteDescription.value.copy(
+            inputValue = ""
         )
     }
 

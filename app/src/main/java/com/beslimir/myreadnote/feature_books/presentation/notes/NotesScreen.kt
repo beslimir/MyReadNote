@@ -25,7 +25,7 @@ import com.beslimir.myreadnote.feature_books.presentation.notes.components.Notes
 @Composable
 fun NotesScreen(
     navController: NavController,
-    viewModel: NotesViewModel = hiltViewModel(),
+    viewModel: NotesViewModel = hiltViewModel()
 ) {
     val scaffoldState = rememberScaffoldState()
     val bookTitleState = viewModel.bookTitle.value
