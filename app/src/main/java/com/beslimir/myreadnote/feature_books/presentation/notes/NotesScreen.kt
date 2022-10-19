@@ -5,26 +5,27 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.beslimir.myreadnote.feature_books.presentation.books.components.NewBookSection
 import com.beslimir.myreadnote.feature_books.presentation.notes.components.NewNoteSection
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NotesScreen(
     navController: NavController,
-    viewModel: NotesViewModel = hiltViewModel()
+    viewModel: NotesViewModel = hiltViewModel(),
 ) {
     val scaffoldState = rememberScaffoldState()
     val bookTitleState = viewModel.bookTitle.value
@@ -89,16 +90,30 @@ fun NotesScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    AnimatedVisibility(
-                        visible = state.isNewNoteSectionVisible,
-                        enter = expandIn(),
-                        exit = shrinkOut()
+                Box {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp)
                     ) {
-                        NewNoteSection(bookTitle = bookTitleState)
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            items(state.notesList) { noteItem ->
+                                Text(text = noteItem.noteTitle.toString())
+                                Spacer(modifier = Modifier.height(16.dp))
+                            }
+                        }
+                    }
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        AnimatedVisibility(
+                            visible = state.isNewNoteSectionVisible,
+                            enter = expandIn(),
+                            exit = shrinkOut()
+                        ) {
+                            NewNoteSection(bookTitle = bookTitleState)
+                        }
                     }
                 }
             }
