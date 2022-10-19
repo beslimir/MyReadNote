@@ -14,7 +14,7 @@ class GetAllNotesForSpecificBookUseCase(
     operator fun invoke(
         bookId: Int,
         orderCategory: OrderCategory = OrderCategory.Date(OrderType.DESCENDING)
-    ): Flow<Resource<List<BookWithNotes>>> {
+    ): Flow<Resource<BookWithNotes>> {
         //TODO: Implement order category
         return mainRepository.getAllNotesForSpecificBook(bookId).map {
             try {

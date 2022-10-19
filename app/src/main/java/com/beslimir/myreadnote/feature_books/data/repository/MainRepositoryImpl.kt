@@ -35,7 +35,7 @@ class MainRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getAllNotesForSpecificBook(bookId: Int): Flow<List<BookWithNotes>> {
+    override fun getAllNotesForSpecificBook(bookId: Int): Flow<BookWithNotes> {
         return flow {
             val notesList = mainDao.getAllNotesForSpecificBook(bookId)
             emit(notesList)

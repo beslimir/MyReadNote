@@ -105,7 +105,7 @@ class NotesViewModel @Inject constructor(
                 is Resource.Loading -> Unit
                 is Resource.Success -> {
                     _state.value = state.value.copy(
-                        notesList = result.data!![0].notes
+                        bookWithNotes = result.data!!
                     )
                 }
             }

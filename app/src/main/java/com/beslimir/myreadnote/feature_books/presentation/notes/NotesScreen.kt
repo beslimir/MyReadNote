@@ -97,17 +97,19 @@ fun NotesScreen(
                             .padding(16.dp)
                     ) {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            val notesCount = if (state.notesList.size % 2 == 0) {
-                                state.notesList.size / 2
-                            } else {
-                                state.notesList.size / 2 + 1
-                            }
-                            items(notesCount) {
-                                NotesRow(
-                                    rowIndex = it,
-                                    entries = state.notesList,
-                                    navController = navController
-                                )
+                            state.bookWithNotes?.let {
+                                val notesCount = if (state.bookWithNotes.notes.size % 2 == 0) {
+                                    state.bookWithNotes.notes.size / 2
+                                } else {
+                                    state.bookWithNotes.notes.size / 2 + 1
+                                }
+                                items(notesCount) {
+                                    NotesRow(
+                                        rowIndex = it,
+                                        entry = state.bookWithNotes,
+                                        navController = navController
+                                    )
+                                }
                             }
                         }
                     }

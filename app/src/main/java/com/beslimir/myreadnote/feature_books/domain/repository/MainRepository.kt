@@ -12,6 +12,6 @@ interface MainRepository {
     suspend fun insertNoteForSpecificBook(note: NoteEntity)
 
     fun getAllBooks(): Flow<Resource<List<BookEntity>>>
-    fun getAllNotesForSpecificBook(bookId: Int): Flow<List<BookWithNotes>>
+    fun getAllNotesForSpecificBook(bookId: Int): Flow<BookWithNotes>
 
 }

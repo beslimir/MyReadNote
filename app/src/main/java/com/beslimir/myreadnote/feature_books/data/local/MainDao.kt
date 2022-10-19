@@ -20,6 +20,6 @@ interface MainDao {
 
     @Transaction //execute in a thread safe manner
     @Query("SELECT * FROM BookEntity WHERE bookId = :bookId")
-    suspend fun getAllNotesForSpecificBook(bookId: Int): List<BookWithNotes>
+    suspend fun getAllNotesForSpecificBook(bookId: Int): BookWithNotes
 
 }
