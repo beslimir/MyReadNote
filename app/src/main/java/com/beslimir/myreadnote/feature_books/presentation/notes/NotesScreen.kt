@@ -6,7 +6,6 @@ import androidx.compose.animation.expandIn
 import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NoteAlt
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.beslimir.myreadnote.feature_books.presentation.notes.components.NewNoteSection
+import com.beslimir.myreadnote.feature_books.presentation.notes.components.NotesRow
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -97,9 +97,17 @@ fun NotesScreen(
                             .padding(16.dp)
                     ) {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(state.notesList) { noteItem ->
-                                Text(text = noteItem.noteTitle.toString())
-                                Spacer(modifier = Modifier.height(16.dp))
+                            val notesCount = if (state.notesList.size % 2 == 0) {
+                                state.notesList.size / 2
+                            } else {
+                                state.notesList.size / 2 + 1
+                            }
+                            items(notesCount) {
+                                NotesRow(
+                                    rowIndex = it,
+                                    entries = state.notesList,
+                                    navController = navController
+                                )
                             }
                         }
                     }
