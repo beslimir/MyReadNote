@@ -1,5 +1,6 @@
 package com.beslimir.myreadnote.feature_books.presentation.notes
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.expandIn
@@ -127,6 +128,14 @@ fun NotesScreen(
                     }
                 }
             }
+        }
+    }
+
+    BackHandler {
+        if (state.isNewNoteSectionVisible) {
+            viewModel.onEvent(NotesEvent.CloseNewNotesSection)
+        } else {
+            navController.popBackStack()
         }
     }
 }
