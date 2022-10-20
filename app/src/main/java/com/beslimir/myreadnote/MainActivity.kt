@@ -23,14 +23,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var booksViewModel: BooksViewModel
-    private lateinit var notesViewModel: NotesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyReadNoteTheme {
                 booksViewModel = hiltViewModel()
-                notesViewModel = hiltViewModel()
 
                 val navController = rememberNavController()
 
@@ -64,11 +62,7 @@ class MainActivity : ComponentActivity() {
     override fun onBackPressed() {
         if (booksViewModel.state.value.isNewBookSectionVisible) {
             booksViewModel.onEvent(BooksEvent.CloseBookSection)
-        }
-//        else if (notesViewModel.state.value.isNewNoteSectionVisible) {
-//            notesViewModel.onEvent(NotesEvent.CloseNewNotesSection)
-//        }
-        else {
+        } else {
             super.onBackPressed()
         }
     }
