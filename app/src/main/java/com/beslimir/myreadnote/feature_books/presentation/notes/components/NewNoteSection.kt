@@ -31,6 +31,7 @@ import com.beslimir.myreadnote.ui.theme.RedOrange
 @Composable
 fun NewNoteSection(
     bookTitle: String,
+    sectionColor: Color,
     viewModel: NotesViewModel = hiltViewModel(),
 ) {
 
@@ -62,7 +63,7 @@ fun NewNoteSection(
                     elevation = 8.dp,
                     shape = RoundedCornerShape(5.dp)
                 )
-                .background(RedOrange)
+                .background(sectionColor)
         ) {
             Box(
                 modifier = Modifier

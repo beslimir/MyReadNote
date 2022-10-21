@@ -14,11 +14,13 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.beslimir.myreadnote.feature_books.data.local.entities.NoteEntity
 import com.beslimir.myreadnote.feature_books.presentation.notes.components.NewNoteSection
 import com.beslimir.myreadnote.feature_books.presentation.notes.components.NotesRow
 
@@ -31,6 +33,7 @@ fun NotesScreen(
     val scaffoldState = rememberScaffoldState()
     val bookTitleState = viewModel.bookTitle.value
     val state = viewModel.state.value
+    val color: Color = NoteEntity.bookItemColors[state.bookWithNotes?.bookEntity?.bookType?.colorCode ?: 0]
 
     Scaffold(
         floatingActionButton = {
@@ -123,7 +126,10 @@ fun NotesScreen(
                             enter = expandIn(),
                             exit = shrinkOut()
                         ) {
-                            NewNoteSection(bookTitle = bookTitleState)
+                            NewNoteSection(
+                                bookTitle = bookTitleState,
+                                sectionColor = color
+                            )
                         }
                     }
                 }
